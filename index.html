@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Inox Et Glass - فخامة الإينوكس والزجاج</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'tajawal': ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        'luxury-black': '#0a0a0a',
+                        'luxury-dark': '#111111',
+                        'luxury-gray': '#1a1a1a',
+                        'luxury-gold': '#c9a962',
+                        'luxury-gold-light': '#e0c78a',
+                        'luxury-silver': '#a0a0a0',
+                        'luxury-steel': '#2a2a2a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Metallic Texture Background */
+        .metallic-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            position: relative;
+        }
+        
+        .metallic-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(201, 169, 98, 0.03) 2px,
+                    rgba(201, 169, 98, 0.03) 4px
+                );
+            pointer-events: none;
+        }
+        
+        /* Gold Gradient Text */
+        .gold-text {
+            background: linear-gradient(135deg, #c9a962 0%, #e0c78a 50%, #c9a962 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Shimmer Effect */
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                transparent 0%,
+                rgba(201, 169, 98, 0.1) 50%,
+                transparent 100%
+            );
+            transform: rotate(30deg);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        /* Glass Morphism */
+        .glass-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c9a962;
+            border-radius: 4px;
+        }
+        
+        /* Navigation Link Hover */
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #c9a962, #e0c78a);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Particles */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(201, 169, 98, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        /* Service Card Hover */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(201, 169, 98, 0.5);
+            box-shadow: 0 20px 40px rgba(201, 169, 98, 0.1);
+        }
+        
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #c9a962 0%, #a08438 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
+        }
+        
+        .btn-outline {
+            border: 2px solid #c9a962;
+            color: #c9a962;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(201, 169, 98, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* WhatsApp Button Pulse */
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201, 169, 98, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(201, 169, 98, 0); }
+        }
+        
+        .whatsapp-btn {
+            animation: pulse-gold 2s infinite;
+        }
+        
+        /* Image Overlay Gradient */
+        .image-overlay {
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, transparent 100%);
+        }
+        
+        /* Stats Counter */
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="metallic-bg font-tajawal">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-luxury-gold to-luxury-gold-light flex items-center justify-center">
+                        <i data-lucide="gem" class="w-6 h-6 text-luxury-black"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold gold-text tracking-wide">Elite Inox Et Glass</span>
+                        <span class="text-xs text-luxury-silver tracking-wider">فخامة الإينوكس والزجاج</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8 space-x-reverse">
+                    <a href="#home" class="nav-link text-white hover:text-luxury-gold transition-colors">الرئيسية</a>
+                    <a href="#services" class="nav-link text-white hover:text-luxury-gold transition-colors">خدماتنا</a>
+                    <a href="#about" class="nav-link text-white hover:text-luxury-gold transition-colors">من نحن</a>
+                    <a href="portfolio.html" class="nav-link text-white hover:text-luxury-gold transition-colors">أعمالنا</a>
+                    <a href="#contact" class="nav-link text-white hover:text-luxury-gold transition-colors">اتصل بنا</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-luxury-gold">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-luxury-dark/95 backdrop-blur-lg border-t border-luxury-gold/20">
+            <div class="px-4 py-6 space-y-4">
+                <a href="#home" class="block text-white hover:text-luxury-gold py-2">الرئيسية</a>
+                <a href="#services" class="block text-white hover:text-luxury-gold py-2">خدماتنا</a>
+                <a href="#about" class="block text-white hover:text-luxury-gold py-2">من نحن</a>
+                <a href="portfolio.html" class="block text-white hover:text-luxury-gold py-2">أعمالنا</a>
+                <a href="#contact" class="block text-white hover:text-luxury-gold py-2">اتصل بنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 right-20 w-72 h-72 bg-luxury-gold/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 left-20 w-96 h-96 bg-luxury-gold/5 rounded-full blur-3xl"></div>
+            <div id="particles-container" class="absolute inset-0"></div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="hero-content opacity-0">
+                <div class="inline-block mb-6 px-4 py-2 rounded-full border border-luxury-gold/30 bg-luxury-gold/5">
+                    <span class="text-luxury-gold text-sm font-medium tracking-wider">✦ تركيبات فاخرة في الجزائر</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
+                    <span class="block text-white">نصمم الأمان</span>
+                    <span class="block gold-text mt-2">بلمسة من الفخامة</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-luxury-silver max-w-3xl mx-auto mb-10 leading-relaxed">
+                    متخصصون في تركيب <span class="text-luxury-gold font-semibold">درابزين الإينوكس</span>، 
+                    <span class="text-luxury-gold font-semibold">كبائن الدوش</span>، 
+                    و<span class="text-luxury-gold font-semibold">الواجهات الزجاجية</span> 
+                    بأعلى معايير الجودة في الجزائر
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                    <a href="portfolio.html" class="btn-primary px-8 py-4 rounded-full text-luxury-black font-bold text-lg flex items-center gap-2 group">
+                        <span>مشاهدة أعمالنا</span>
+                        <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#contact" class="btn-outline px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 group">
+                        <span>اتصل بنا الآن</span>
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <i data-lucide="chevron-down" class="w-6 h-6 text-luxury-gold"></i>
+            </div>
+        </div>
+        
+        <!-- Decorative Lines -->
+        <div class="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-luxury-gold/20 to-transparent"></div>
+        <div class="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-luxury-gold/20 to-transparent"></div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="stat-item text-center glass-card rounded-2xl p-6 opacity-0">
+                    <div class="text-4xl md:text-5xl font-black gold-text stat-number" data-target="12">0</div>
+                    <div class="text-luxury-silver mt-2">سنوات خبرة</div>
+                </div>
+                <div class="stat-item text-center glass-card rounded-2xl p-6 opacity-0">
+                    <div class="text-4xl md:text-5xl font-black gold-text stat-number" data-target="500">0</div>
+                    <div class="text-luxury-silver mt-2">مشروع منجز</div>
+                </div>
+                <div class="stat-item text-center glass-card rounded-2xl p-6 opacity-0">
+                    <div class="text-4xl md:text-5xl font-black gold-text stat-number" data-target="350">0</div>
+                    <div class="text-luxury-silver mt-2">عميل </div>
+                </div>
+                <div class="stat-item text-center glass-card rounded-2xl p-6 opacity-0">
+                    <div class="text-4xl md:text-5xl font-black gold-text stat-number" data-target="100">0</div>
+                    <div class="text-luxury-silver mt-2">% جودة مضمونة</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-luxury-gold text-sm font-bold tracking-widest uppercase mb-4 block">Nos Services</span>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-6">خدماتنا المتميزة</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-luxury-gold to-luxury-gold-light mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1: Garde-corps Inox -->
+                <div class="service-card glass-card rounded-3xl p-8 relative overflow-hidden group opacity-0">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-luxury-gold/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-luxury-gold/20 to-luxury-gold/5 flex items-center justify-center mb-6 border border-luxury-gold/20">
+                            <i data-lucide="fence" class="w-8 h-8 text-luxury-gold"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">درابزين الإينوكس</h3>
+                        <p class="text-luxury-silver mb-4 leading-relaxed">
+                            <span class="text-luxury-gold font-semibold">Garde-corps Inox 304</span> 
+                            بجودة عالية مقاوم للصدأ، مناسب للفلل والعمارات والمراكز التجارية
+                        </p>
+                        <ul class="space-y-2 text-sm text-luxury-silver">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-luxury-gold"></i>
+                                <span>Inox 304 أصلي</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-luxury-gold"></i>
+                                <span>تشطيب Mirror أو Satin</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-luxury-gold"></i>
+                                <span>ضمان 10 سنوات</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Service 2: Cabines de Douche -->
+                <div class="service-card glass-card rounded-3xl p-8 relative overflow-hidden group opacity-0">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-luxury-gold/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-luxury-gold/20 to-luxury-gold/5 flex items-center justify-center mb-6 border border-luxury-gold/20">
+                            <i data-lucide="shower-head" class="w-8 h-8 text-luxury-gold"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">كبائن الدوش</h3>
+                        <p class="text-luxury-silver mb-4 leading-relaxed">
+                            <span class="text-luxury-gold font-semibold">Cabines de Douche</span> 
+                            بزجاج <span class="font-semibold">Verre Trempé 8mm</span> مع إكسسوارات Inox فاخرة
+                        </p>
+                        <ul class="space-y-2 text-sm text-luxury-silver">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-luxury-gold"></i>
+                                <span>Verre Trempé Sécurit</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-luxury-gold"></i>
+                                <span>إكسسوارات Inox 316</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-luxury-gold"></i>
+                                <span>تركيب محكم ضد التسرب</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Service 3: Vitrines -->
+                <div class="service-card glass-card rounded-3xl p-8 relative overflow-hidden group opacity-0">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-luxury-gold/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-luxury-gold/20 to-luxury-gold/5 flex items-center justify-center mb-6 border border-luxury-gold/20">
+                            <i data-lucide="store" class="w-8 h-8 text-luxury-gold"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">واجهات المحلات</h3>
+                        <p class="text-luxury-silver mb-4 leading-relaxed">
+                            <span class="text-luxury-gold font-semibold">Vitrines et Façades</span> 
+                            زجاجية عصرية للمحلات التجارية والمكاتب بتصاميم عصرية
+                        </p>
+                        <ul class="space-y-2 text-sm text-luxury-silver">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-luxury-gold"></i>
+                                <span>Verre Double Vitrage</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-luxury-gold"></i>
+                                <span>إطار Inox أو Aluminum</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-luxury-gold"></i>
+                                <span>عزل حراري وصوتي</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-luxury-dark to-luxury-black"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="about-content opacity-0">
+                    <span class="text-luxury-gold text-sm font-bold tracking-widest uppercase mb-4 block">Qui Sommes-Nous</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
+                        خبرة <span class="gold-text">12 عاماً</span><br>
+                        في عالم الإينوكس والزجاج
+                    </h2>
+                    <p class="text-luxury-silver text-lg leading-relaxed mb-6">
+                        نحن في <span class="text-luxury-gold font-bold">Elite Inox Et Glass</span> نجمع بين 
+                        <span class="font-semibold">الخبرة الجزائرية</span> و<span class="font-semibold">التقنيات الأوروبية</span> 
+                        لتقديم منتجات استثنائية. نستخدم فقط <span class="text-luxury-gold">Inox 304 و 316</span> 
+                        الأصلي و<span class="text-luxury-gold">Verre Trempé</span> المعتمد.
+                    </p>
+                    <p class="text-luxury-silver text-lg leading-relaxed mb-8">
+                        من <span class="font-semibold">الدار البيضاء</span> إلى <span class="font-semibold">وهران</span> 
+                        و<span class="font-semibold">قسنطينة</span>، نغطي كامل التراب الوطني بخدمات تركيب احترافية 
+                        وفريق تقني متخصص.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-luxury-gold/10 flex items-center justify-center">
+                                <i data-lucide="award" class="w-6 h-6 text-luxury-gold"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-bold">جودة عالية</div>
+                                <div class="text-luxury-silver text-sm">Haute Qualité</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-luxury-gold/10 flex items-center justify-center">
+                                <i data-lucide="clock" class="w-6 h-6 text-luxury-gold"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-bold">التزام بالمواعيد</div>
+                                <div class="text-luxury-silver text-sm">Délais Respectés</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-luxury-gold/10 flex items-center justify-center">
+                                <i data-lucide="shield-check" class="w-6 h-6 text-luxury-gold"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-bold">ضمان شامل</div>
+                                <div class="text-luxury-silver text-sm">Garantie Totale</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full bg-luxury-gold/10 flex items-center justify-center">
+                                <i data-lucide="users" class="w-6 h-6 text-luxury-gold"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-bold">فريق محترف</div>
+                                <div class="text-luxury-silver text-sm">Équipe Pro</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image relative opacity-0">
+                    <div class="relative rounded-3xl overflow-hidden border border-luxury-gold/20">
+                        <div class="aspect-[4/5] bg-gradient-to-br from-luxury-gray to-luxury-dark shimmer flex items-center justify-center">
+                            <div class="text-center p-8">
+                                <i data-lucide="image" class="w-20 h-20 text-luxury-gold/30 mx-auto mb-4"></i>
+                                <p class="text-luxury-silver">صورة الفريق أو ورشة العمل</p>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-luxury-black/80 to-transparent"></div>
+                        <div class="absolute bottom-6 right-6 left-6">
+                            <div class="glass-card rounded-xl p-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-luxury-gold flex items-center justify-center">
+                                        <i data-lucide="star" class="w-6 h-6 text-luxury-black"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-white font-bold">تقييم ممتاز</div>
+                                        <div class="text-luxury-gold text-sm">4.9/5 من 350 عميل</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute -top-6 -left-6 w-24 h-24 bg-luxury-gold rounded-full flex items-center justify-center float-animation shadow-2xl">
+                        <div class="text-center">
+                            <div class="text-2xl font-black text-luxury-black">12+</div>
+                            <div class="text-xs text-luxury-black font-bold">سنة</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-luxury-gold/10 via-transparent to-luxury-gold/10"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="glass-card rounded-3xl p-12 md:p-16 border border-luxury-gold/30">
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+                    هل تبحث عن <span class="gold-text">تصميم فاخر</span> لمنزلك أو محلك؟
+                </h2>
+                <p class="text-xl text-luxury-silver mb-10 max-w-2xl mx-auto">
+                    احصل على استشارة مجانية وعرض سعر مفصل خلال 24 ساعة. نغطي كامل ولايات الجزائر.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="https://wa.me/213794852230" target="_blank" class="btn-primary px-10 py-4 rounded-full text-luxury-black font-bold text-lg flex items-center gap-3">
+                        <i data-lucide="message-circle" class="w-6 h-6"></i>
+                        <span>تواصل عبر واتساب</span>
+                    </a>
+                    <a href="tel:+213794852230" class="btn-outline px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3">
+                        <i data-lucide="phone-call" class="w-6 h-6"></i>
+                        <span>اتصل مباشرة</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-luxury-gold text-sm font-bold tracking-widest uppercase mb-4 block">Contactez-Nous</span>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-6">تواصل معنا</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-luxury-gold to-luxury-gold-light mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="glass-card rounded-2xl p-6 flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="map-pin" class="w-7 h-7 text-luxury-gold"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">العنوان</h3>
+                            <p class="text-luxury-silver">حي البدر، ولاية الجزائر، الجزائر</p>
+                            <p class="text-luxury-silver text-sm mt-1">Zone Industrielle, Alger Centre</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card rounded-2xl p-6 flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="phone" class="w-7 h-7 text-luxury-gold"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">الهاتف</h3>
+                            <p class="text-luxury-silver text-lg font-semibold">+213 555 12 34 56</p>
+                            <p class="text-luxury-silver text-sm mt-1">متاح من السبت إلى الخميس 8ص - 6م</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card rounded-2xl p-6 flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="mail" class="w-7 h-7 text-luxury-gold"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">البريد الإلكتروني</h3>
+                            <p class="text-luxury-silver text-lg">elitglassetinox@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card rounded-2xl p-6 flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="instagram" class="w-7 h-7 text-luxury-gold"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">مواقع التواصل</h3>
+                            <div class="flex gap-4 mt-2">
+                                <a href="#" class="w-10 h-10 rounded-full bg-luxury-gold/10 flex items-center justify-center hover:bg-luxury-gold/20 transition-colors">
+                                    <i data-lucide="facebook" class="w-5 h-5 text-luxury-gold">https://www.facebook.com/profile.php?id=61589698586604</i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-luxury-gold/10 flex items-center justify-center hover:bg-luxury-gold/20 transition-colors">
+                                    <i data-lucide="instagram" class="w-5 h-5 text-luxury-gold"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-luxury-gold/10 flex items-center justify-center hover:bg-luxury-gold/20 transition-colors">
+                                    <i data-lucide="linkedin" class="w-5 h-5 text-luxury-gold"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="glass-card rounded-3xl p-8 border border-luxury-gold/20">
+                    <h3 class="text-2xl font-bold text-white mb-6">أرسل لنا رسالة</h3>
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-luxury-silver mb-2 text-sm">الاسم الكامل</label>
+                                <input type="text" class="w-full bg-luxury-black/50 border border-luxury-steel rounded-xl px-4 py-3 text-white focus:border-luxury-gold focus:outline-none transition-colors" placeholder="محمد 
+                            </div>
+                            <div>
+                                <label class="block text-luxury-silver mb-2 text-sm">رقم الهاتف</label>
+                                <input type="tel" class="w-full bg-luxury-black/50 border border-luxury-steel rounded-xl px-4 py-3 text-white focus:border-luxury-gold focus:outline-none transition-colors text-left" placeholder="+213 555 00 00 00">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-luxury-silver mb-2 text-sm">نوع الخدمة</label>
+                            <select class="w-full bg-luxury-black/50 border border-luxury-steel rounded-xl px-4 py-3 text-white focus:border-luxury-gold focus:outline-none transition-colors">
+                                <option>درابزين الإينوكس (Garde-corps Inox)</option>
+                                <option>كبائن الدوش (Cabines de Douche)</option>
+                                <option>واجهات المحلات (Vitrines)</option>
+                                <option>أخرى</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-luxury-silver mb-2 text-sm">الرسالة</label>
+                            <textarea rows="4" class="w-full bg-luxury-black/50 border border-luxury-steel rounded-xl px-4 py-3 text-white focus:border-luxury-gold focus:outline-none transition-colors resize-none" placeholder="صف مشروعك هنا..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-primary py-4 rounded-xl text-luxury-black font-bold text-lg flex items-center justify-center gap-2">
+                            <span>إرسال الطلب</span>
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-luxury-dark border-t border-luxury-gold/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-luxury-gold to-luxury-gold-light flex items-center justify-center">
+                            <i data-lucide="gem" class="w-6 h-6 text-luxury-black"></i>
+                        </div>
+                        <span class="text-xl font-bold gold-text">Elite Inox Et Glass</span>
+                    </div>
+                    <p class="text-luxury-silver leading-relaxed max-w-md">
+                        رواد تركيب الإينوكس والزجاج في الجزائر. نقدم حلولاً فاخرة للفلل، العمارات، والمحلات التجارية بأعلى معايير الجودة الأوروبية.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-luxury-silver hover:text-luxury-gold transition-colors">الرئيسية</a></li>
+                        <li><a href="#services" class="text-luxury-silver hover:text-luxury-gold transition-colors">خدماتنا</a></li>
+                        <li><a href="portfolio.html" class="text-luxury-silver hover:text-luxury-gold transition-colors">أعمالنا</a></li>
+                        <li><a href="#contact" class="text-luxury-silver hover:text-luxury-gold transition-colors">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">خدماتنا</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-luxury-silver hover:text-luxury-gold transition-colors">Garde-corps Inox</a></li>
+                        <li><a href="#" class="text-luxury-silver hover:text-luxury-gold transition-colors">Cabines de Douche</a></li>
+                        <li><a href="#" class="text-luxury-silver hover:text-luxury-gold transition-colors">Vitrines</a></li>
+                        <li><a href="#" class="text-luxury-silver hover:text-luxury-gold transition-colors">Verre Trempé</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-luxury-gold/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-luxury-silver text-sm">
+                    © 2026 Elite Inox Et Glass. جميع الحقوق محفوظة.
+                </p>
+                <p class="text-luxury-silver text-sm">
+                    صنع بـ <span class="text-luxury-gold">♥</span> في الجزائر
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/213794852230" target="_blank" 
+       class="whatsapp-btn fixed bottom-6 left-6 z-50 w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group">
+        <i data-lucide="message-circle" class="w-8 h-8 text-white"></i>
+        <span class="absolute left-full ml-3 bg-white text-luxury-black px-3 py-1 rounded-lg text-sm font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            تواصل معنا
+        </span>
+    </a>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Hero Animation
+        gsap.to('.hero-content', {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            delay: 0.3
+        });
+        
+        // Stats Counter Animation
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-target'));
+            gsap.to(stat, {
+                innerHTML: target,
+                duration: 2,
+                ease: 'power2.out',
+                snap: { innerHTML: 1 },
+                scrollTrigger: {
+                    trigger: stat,
+                    start: 'top 80%',
+                    once: true
+                }
+            });
+        });
+        
+        // Stats Items Fade In
+        gsap.utils.toArray('.stat-item').forEach((item, i) => {
+            gsap.to(item, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 85%',
+                    once: true
+                }
+            });
+        });
+        
+        // Service Cards Animation
+        gsap.utils.toArray('.service-card').forEach((card, i) => {
+            gsap.to(card, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: i * 0.2,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%',
+                    once: true
+                }
+            });
+        });
+        
+        // About Section Animation
+        gsap.to('.about-content', {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: '.about-content',
+                start: 'top 75%',
+                once: true
+            }
+        });
+        
+        gsap.to('.about-image', {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            delay: 0.3,
+            scrollTrigger: {
+                trigger: '.about-image',
+                start: 'top 75%',
+                once: true
+            }
+        });
+        
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-luxury-dark/95', 'backdrop-blur-lg', 'shadow-lg');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('bg-luxury-dark/95', 'backdrop-blur-lg', 'shadow-lg');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Create Particles
+        const particlesContainer = document.getElementById('particles-container');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
+            particlesContainer.appendChild(particle);
+            
+            gsap.to(particle, {
+                y: -100,
+                x: Math.random() * 50 - 25,
+                opacity: 0,
+                duration: Math.random() * 3 + 2,
+                repeat: -1,
+                ease: 'none',
+                delay: Math.random() * 5
+            });
+        }
+        
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
