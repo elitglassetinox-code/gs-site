@@ -19,6 +19,7 @@
           name: "git-gateway",
           branch: "main"
         },
+        local_backend: false,
         media_folder: "images",
         public_folder: "/images",
         locale: "ar",
@@ -34,8 +35,8 @@
                 fields: [
                   { label: "اسم الشركة", name: "company_name", widget: "string" },
                   { label: "الشعار الفرعي", name: "tagline", widget: "string" },
-                  { label: "رقم الهاتف", name: "phone", widget: "string" },
-                  { label: "واتساب", name: "whatsapp", widget: "string" },
+                  { label: "رقم الهاتف (للعرض)", name: "phone", widget: "string", hint: "مثال: +213 794 85 22 30" },
+                  { label: "واتساب (أرقام فقط بدون +)", name: "whatsapp", widget: "string", hint: "مثال: 213794852230" },
                   { label: "البريد الإلكتروني", name: "email", widget: "string" },
                   { label: "العنوان بالعربية", name: "address_ar", widget: "string" },
                   { label: "العنوان بالفرنسية", name: "address_fr", widget: "string" },
